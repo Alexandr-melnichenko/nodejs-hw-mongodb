@@ -10,7 +10,9 @@ export default [
       semi: 'error',
       'no-unused-vars': ['error', { args: 'none' }],
       'no-undef': 'error',
-      'no-console': 'off',
+    },
+    env: {
+      node: true,
     },
   },
 ];
