@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
-import { contactsRouter } from './routers/contacts.js';
+import contactsRouter from './routers/contacts.js';
 import { getEnvVar } from './utils/getEnvVar.js';
 
 dotenv.config();
