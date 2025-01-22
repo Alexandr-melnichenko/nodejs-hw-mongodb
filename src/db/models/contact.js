@@ -63,4 +63,7 @@ const contactsPatchSchema = new Schema(
 );
 
 export const ContactsCollection = model('contacts', contactsSchema);
-export const ContactsPatchCollection = model('contacts', contactsPatchSchema);
+export const ContactsPatchCollection = model(
+  'patchContacts',
+  contactsPatchSchema,
+);
