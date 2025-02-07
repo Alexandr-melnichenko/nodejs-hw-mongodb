@@ -3,6 +3,7 @@ import { UserCollection } from '../db/models/user.js';
 import createHttpError from 'http-errors';
 import { SessionCollection } from '../db/models/session.js';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/index.js';
+import { randomBytes } from 'crypto';
 
 export const registerUser = async (payload) => {
   const user = await UserCollection.findOne({
