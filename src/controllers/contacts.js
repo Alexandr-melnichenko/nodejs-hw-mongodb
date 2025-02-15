@@ -49,7 +49,25 @@ export const getContactByIdController = async (req, res) => {
 };
 
 export const createContactController = async (req, res) => {
-  const contact = await createContact(req.body, req.user._id);
+  if (!req.user) {
+    throw createHttpError(401, 'Unauthorized');
+  }
+
+  const photo = req.file;
+  let photoUrl;
+
+  if (photo) {
+    const isCloudinaryEnabled = getEnvVar('ENABLE_CLOUDINARY') === 'true';
+
+    photoUrl = isCloudinaryEnabled
+      ? await saveFileToCloudinary(photo)
+      : await saveFileToUploadDir(photo);
+  }
+
+  const contact = await createContact(
+    { ...req.body, photo: photoUrl },
+    req.user._id,
+  );
 
   res.status(201).json({
     status: 201,
@@ -65,11 +83,11 @@ export const patchContactController = async (req, res, next) => {
   let photoUrl;
 
   if (photo) {
-    if (getEnvVar('ENABLE_CLOUDINARY') === 'true') {
-      photoUrl = await saveFileToCloudinary(photo);
-    } else {
-      photoUrl = await saveFileToUploadDir(photo);
-    }
+    const isCloudinaryEnabled = getEnvVar('ENABLE_CLOUDINARY') === 'true';
+
+    photoUrl = isCloudinaryEnabled
+      ? await saveFileToCloudinary(photo)
+      : await saveFileToUploadDir(photo);
   }
 
   const result = await updateContact(
