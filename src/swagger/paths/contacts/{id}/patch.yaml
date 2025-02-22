@@ -31,12 +31,15 @@ requestBody:
             type: string
             example: 'info@gmail.com'
           isFavourite:
-            description: "Contact's favourite status. Should be true of false"
-            type: boolean
+            description: "Contact's favourite status. Should be true or false"
+            oneOf:
+              - type: boolean
+              - type: 'string'
+                enum: ['', 'true', 'false']
             example: false
           contactType:
             description: 'Contacts type categories.'
-            type: string
+            type: [string, 'null']
             enum: ['work', 'home', 'personal']
           photo:
             description: "Contact's photo"
