@@ -12,9 +12,17 @@ export const updateContactSchema = Joi.object({
   name: Joi.string().min(3).max(20),
   phoneNumber: Joi.string().min(3).max(20),
   email: Joi.string().email(),
-  isFavourite: Joi.boolean().truthy('true').falsy('false').default(false),
+  isFavourite: Joi.string().valid('true', 'false'),
   contactType: Joi.string().valid('work', 'home', 'personal'),
 });
+
+// export const updateContactSchema = Joi.object({
+//   name: Joi.string().min(3).max(20),
+//   phoneNumber: Joi.string().min(3).max(20),
+//   email: Joi.string().email(),
+//   isFavourite: Joi.boolean().truthy('true').falsy('false').default(false),
+//   contactType: Joi.string().valid('work', 'home', 'personal'),
+// });
 
 const dataToValidate = {
   name: 'John Smith',
